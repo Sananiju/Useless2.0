@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Did You Bathe Today?</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    video {
+      border: 3px solid #444;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #result {
+      font-size: 28px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛁 Did You Bathe Today?</h1>
+  <video id="webcam" autoplay playsinline width="320" height="240"></video><br>
+  <button onclick="analyzeBathStatus()">Analyze</button>
+  <div id="result"></div>
+
+  <script>
+    const video = document.getElementById('webcam');
+    const result = document.getElementById('result');
+
+    // Start webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(error => {
+        alert("Can't access webcam 😢");
+      });
+
+    function analyzeBathStatus() {
+      const outcomes = [
+        "✅ You have bathed. Proud of you!",
+        "❌ You haven't bathed. Please do the needful.",
+        "🤷‍♂️ Bathing status: Uncertain. You smell fine virtually.",
+        "🫧 Bathed spiritually, not physically.",
+        "🚿 Half-bathed. Hair’s fine, rest unsure."
+      ];
+      const random = Math.floor(Math.random() * outcomes.length);
+      result.innerText = outcomes[random];
+    }
+  </script>
+
+</body>
+</html>
